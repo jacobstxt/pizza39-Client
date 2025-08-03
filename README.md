@@ -33,12 +33,11 @@ dotnet run
 
 - **Фронтенд:** React, TypeScript, Vite (або CRA), CSS Modules / Styled Components  
 - **Бекенд:** ASP.NET Core Web API, C#, Entity Framework Core  
-- **База даних:** SQL Server (або інша, яку налаштуєш)  
+- **База даних:** PostgreSQL 
 - **Контроль версій:** Git, GitHub  
 - **Управління пакетами:** npm (фронтенд), NuGet (бекенд)  
-- **Інструменти:** Visual Studio / WebStorm, Postman для тестування API  
+- **Інструменти:** Visual Studio / WebStorm, Swagger для тестування API  
 
----
 
 ### Налаштування
 
