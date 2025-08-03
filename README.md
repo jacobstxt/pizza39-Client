@@ -4,7 +4,7 @@
 
 ## Структура
 
-- `/client` — фронтенд (React). Докладна інструкція в [client/my-jerseygoal-ts/README.md](client/my-jerseygoal-ts/README.md)
+- `/client/my-jerseygoal-ts` — фронтенд (React). Докладна інструкція в [client/my-jerseygoal-ts/README.md](client/my-jerseygoal-ts/README.md)
 - `/server/JearsyGoal_WebApi` — бекенд (ASP.NET Core Web API). Документація всередині папки.
 
 ## Запуск
