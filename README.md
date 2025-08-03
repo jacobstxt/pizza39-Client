@@ -14,8 +14,9 @@
 ---
 
 ## Запуск
-```bash
+
 ### Клонування репозиторію
+```bash
 git clone https://github.com/jacobstxt/pizza39-app.git
 cd pizza39-app
 
