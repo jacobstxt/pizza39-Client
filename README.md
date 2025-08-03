@@ -16,7 +16,6 @@
 ## Запуск
 
 ### Клонування репозиторію
-
 ```bash
 git clone https://github.com/jacobstxt/pizza39-app.git
 cd pizza39-app
@@ -32,6 +31,7 @@ dotnet restore
 dotnet run
 
 ### Технології
+```bash
 Фронтенд: React, TypeScript, Vite (або CRA), CSS Modules / Styled Components
 Бекенд: ASP.NET Core Web API, C#, Entity Framework Core
 База даних: SQL Server (або інша, яку налаштуєш)
