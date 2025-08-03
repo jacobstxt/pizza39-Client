@@ -36,19 +36,19 @@ dotnet run
 ```
 
 ### Технології
-
+```bash
 - **Фронтенд:** React, TypeScript, Vite (або CRA), CSS Modules / Styled Components  
 - **Бекенд:** ASP.NET Core Web API, C#, Entity Framework Core  
 - **База даних:** PostgreSQL 
 - **Контроль версій:** Git, GitHub  
 - **Управління пакетами:** npm (фронтенд), NuGet (бекенд)  
 - **Інструменти:** Visual Studio / WebStorm, Swagger для тестування API  
-
+```
 
 ### Налаштування
-
+```bash
 - Для бекенду потрібно налаштувати підключення до бази даних у файлі `appsettings.json`.  
 - Використовуй `.env` файли для секретних ключів та інших конфігурацій.
-
+```
 
 
