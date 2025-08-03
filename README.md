@@ -30,15 +30,20 @@ dotnet restore
 dotnet run
 
 ### Технології
-Фронтенд: React, TypeScript, Vite (або CRA), CSS Modules / Styled Components
-Бекенд: ASP.NET Core Web API, C#, Entity Framework Core
-База даних: SQL Server (або інша, яку налаштуєш)
-Контроль версій: Git, GitHub
-Управління пакетами: npm (фронтенд), NuGet (бекенд)
-Інструменти: Visual Studio / WebStorm , Postman для тестування API
 
-###Налаштування
-Для бекенду потрібно налаштувати підключення до бази даних у appsettings.json.
-Використовуй .env файли для секретних ключів та інших конфігурацій.
+- **Фронтенд:** React, TypeScript, Vite (або CRA), CSS Modules / Styled Components  
+- **Бекенд:** ASP.NET Core Web API, C#, Entity Framework Core  
+- **База даних:** SQL Server (або інша, яку налаштуєш)  
+- **Контроль версій:** Git, GitHub  
+- **Управління пакетами:** npm (фронтенд), NuGet (бекенд)  
+- **Інструменти:** Visual Studio / WebStorm, Postman для тестування API  
+
+---
+
+### Налаштування
+
+- Для бекенду потрібно налаштувати підключення до бази даних у файлі `appsettings.json`.  
+- Використовуй `.env` файли для секретних ключів та інших конфігурацій.
+
 
 
