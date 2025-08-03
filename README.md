@@ -19,6 +19,7 @@
 ```bash
 git clone https://github.com/jacobstxt/pizza39-app.git
 cd pizza39-app
+```
 
 ### Запуск frontend
 cd client/my-jerseygoal-ts
