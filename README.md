@@ -22,14 +22,18 @@ cd pizza39-app
 ```
 
 ### Запуск frontend
+```bash
 cd client/my-jerseygoal-ts
 npm install
 npm run dev
+```
 
 ### Запуск backend
+```bash
 cd server/JearsyGoal_WebApi
 dotnet restore
 dotnet run
+```
 
 ### Технології
 
