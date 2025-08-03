@@ -12,5 +12,5 @@
 1. Клонувати репозиторій:
 
 ```bash
-git clone https://github.com/твій-нік/pizza39-app.git
+git clone https://github.com/jacobstxt/pizza39-app.git
 cd pizza39-app
