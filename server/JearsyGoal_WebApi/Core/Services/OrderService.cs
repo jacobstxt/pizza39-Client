@@ -92,12 +92,20 @@ public class OrderService(IAuthService authService, ISmtpService smtpService, Ap
 
     public async Task<List<SimpleModel>> GetCitiesAsync(string city)
     {
+        city = city.ToLower();
+
         var query = context.Cities.AsQueryable();
-        query = query.Where(x => x.Name.ToLower().Contains(city.ToLower()) == true || x.Name.ToLower() == city.ToLower());
-        query = query.OrderBy(c =>
-                c.Name.ToLower() == city.ToLower() ? 0 : 1
-            );
-        var cities = await query.ProjectTo<SimpleModel>(mapper.ConfigurationProvider).Take(15).ToListAsync();
+
+        query = query.Where(x=> x.Name.ToLower().Contains(city));
+
+        query = query.OrderBy(c => c.Name.ToLower() == city.ToLower() ? 0 : 1);
+
+
+        var cities = await query.ProjectTo<SimpleModel>(
+            mapper.ConfigurationProvider)
+            .Take(15)
+            .ToListAsync();
+
         return cities;
     }
 
@@ -122,10 +130,19 @@ public class OrderService(IAuthService authService, ISmtpService smtpService, Ap
     public async Task<List<SimpleModel>> GetPostDepartmentsAsync(PostDepartmentSearchModel model)
     {
         var query = context.PostDepartments.AsQueryable();
+
         query = query.Where(x => x.CityId == model.CityId);
+
         if (!string.IsNullOrEmpty(model.Name))
-            query = query.Where(x => x.Name.ToLower().Contains(model.Name.ToLower()) == true);
-        var departments = await query.ProjectTo<SimpleModel>(mapper.ConfigurationProvider).Take(15).ToListAsync();
+        {
+            var nameLower = model.Name.ToLower();
+            query = query.Where(x => x.Name.ToLower().Contains(nameLower));
+        }
+        var departments = await query
+            .ProjectTo<SimpleModel>(mapper.ConfigurationProvider)
+            .Take(15)
+            .ToListAsync();
+
         return departments;
     }
 

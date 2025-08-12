@@ -12,6 +12,8 @@ namespace Domain.Entities.Delivery
     {
         public string Name { get; set; } = string.Empty;
 
+        public string Ref { get; set; } = string.Empty;
+
         [ForeignKey("City")]
         public long CityId { get; set; }
         public CityEntity? City { get; set; }

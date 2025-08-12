@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Text;
+using AutoMapper;
 using Core.Interfaces;
 using Core.Models.NovaPoshta.Area;
 using Core.Models.NovaPoshta.City;
@@ -6,13 +8,13 @@ using Core.Models.NovaPoshta.Department;
 using Domain;
 using Domain.Entities.Delivery;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Text;
 
 namespace Core.Services;
 
-public class NovaPoshtaService(IMapper mapper, IHttpClientFactory httpClientFactory, AppDbPizushiContext context) : INovaPoshtaService
+public class NovaPoshtaService(IMapper mapper, IHttpClientFactory httpClientFactory, AppDbPizushiContext context, IServiceScopeFactory scopeFactory) : INovaPoshtaService
 {
     private readonly HttpClient http = httpClientFactory.CreateClient();
     private readonly string url = "https://api.novaposhta.ua/v2.0/json/";
@@ -53,10 +55,20 @@ public class NovaPoshtaService(IMapper mapper, IHttpClientFactory httpClientFact
             {
                 foreach (var city in result.Data)
                 {
-                    var entity = mapper.Map<CityEntity>(city);
-                    await context.Cities.AddAsync(entity);
 
-                    Console.WriteLine($"Add city: {city.Description}");
+                    var existingCity = await context.Cities
+                      .FirstOrDefaultAsync(c => c.Ref == city.Ref);
+
+                    if (existingCity == null)
+                    {
+                        var entity = mapper.Map<CityEntity>(city);
+                        entity.Ref = city.Ref;
+                        entity.Name = city.Description;
+
+                        await context.Cities.AddAsync(entity);
+                        Console.WriteLine($"Add city: {city.Description}");
+                    }
+
                 }
 
                 cities.AddRange(result.Data);
@@ -70,37 +82,60 @@ public class NovaPoshtaService(IMapper mapper, IHttpClientFactory httpClientFact
     public async Task<List<DepartmentItemResponse>> FetchDepartmentsAsync()
     {
         var departments = new List<DepartmentItemResponse>();
-        var cities = await FetchCitiesAsync();
 
-        foreach (var city in cities)
+        var cities = await context.Cities.ToListAsync();
+
+        var semaphore = new SemaphoreSlim(5);
+
+        var tasks = cities.Select(async cityEntity =>
         {
-            var cityEntity = await context.Cities.FirstOrDefaultAsync(x => x.Name == city.Description);
-            if (cityEntity == null)
-                continue;
-
-            var modelRequest = new DepartmentPostModel
+            await semaphore.WaitAsync();
+            try
             {
-                ApiKey = apiKey,
-                MethodProperties = new MethodDepatmentProperties { CityRef = city.Ref }
-            };
+                using var scope = scopeFactory.CreateScope();
+                var scopedContext = scope.ServiceProvider.GetRequiredService<AppDbPizushiContext>();
 
-            var result = await SendRequestAsync<DepartmentResponse>(modelRequest);
-            if (result?.Data != null && result.Success)
-            {
-                foreach (var department in result.Data)
+                var modelRequest = new DepartmentPostModel
                 {
-                    var entity = mapper.Map<PostDepartmentEntity>(department);
-                    entity.CityId = cityEntity.Id;
+                    ApiKey = apiKey,
+                    MethodProperties = new MethodDepatmentProperties { CityRef = cityEntity.Ref }
+                };
 
-                    await context.PostDepartments.AddAsync(entity);
-                    Console.WriteLine($"Add post department: {department.Description}");
+                var result = await SendRequestAsync<DepartmentResponse>(modelRequest);
+
+                if (result?.Data != null && result.Success)
+                {
+                    foreach (var department in result.Data)
+                    {
+                        var exists = await scopedContext.PostDepartments
+                          .AnyAsync(d => d.Ref == department.Ref && d.CityId == cityEntity.Id);
+
+                        if (!exists)
+                        {
+                            var entity = mapper.Map<PostDepartmentEntity>(department);
+                            entity.CityId = cityEntity.Id;
+                            entity.Ref = department.Ref; // зберігаємо унікальний код з API
+                            entity.Name = department.Description; // зберігаємо назву
+
+                            await scopedContext.PostDepartments.AddAsync(entity);
+                            Console.WriteLine($"Add post department: {department.Description}");
+                        }
+                    }
+                    await scopedContext.SaveChangesAsync();
+
+                    lock (departments)
+                    {
+                        departments.AddRange(result.Data);
+                    }
                 }
-
-                departments.AddRange(result.Data);
             }
-        }
+            finally
+            {
+                semaphore.Release();
+            }
+        });
 
-        await context.SaveChangesAsync();
+        await Task.WhenAll(tasks);
         return departments;
     }
 

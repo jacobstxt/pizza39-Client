@@ -21,6 +21,7 @@ import MenuCategoryPage from "./pages/Menu";
 import UsersEditPage from "./admin/pages/Users/Edit";
 import OrderFormPage from "./components/cart/OrderForm";
 import CheckoutLayout from "./layout/user/CheckoutLayout.tsx";
+import ProfilePage from "./pages/Account/Profile";
 
 const App: React.FC = () => {
     return (
@@ -44,7 +45,7 @@ const App: React.FC = () => {
                         <Route  path={"forgot-password"} element={<ForgotPasswordPage/>} />
                         <Route  path={"email-sent-success"} element={<EmailSentSuccessPage/>} />
                         <Route  path={"reset-password"} element={<ResetPassword/>} />
-
+                        <Route path={"profile"} element={<ProfilePage/>}></Route>
                     </Route>
 
 

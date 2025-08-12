@@ -24,7 +24,11 @@ const UserLayout: React.FC = () => {
         console.log('Server cart', serverCart);
         dispatch(apiCart.util.resetApiState()); // очищення кешу запитів кошика
         console.log('Server cart', serverCart);
+        navigate('/');
+    }
 
+    function openProfile(){
+        navigate("/profile");
     }
 
 
@@ -125,6 +129,7 @@ const UserLayout: React.FC = () => {
                                      </div>
 
                                      <DropdownMenu.Item
+                                         onClick={openProfile}
                                          className="flex items-center text-black
                                     hover:bg-gray-200  py-2 rounded
                                     cursor-pointer text-sm transition-colors border-b">

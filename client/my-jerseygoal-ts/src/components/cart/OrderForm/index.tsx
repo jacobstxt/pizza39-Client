@@ -15,13 +15,15 @@ import {useNavigate} from "react-router";
 
 
 const OrderFormPage: React.FC = () => {
+    const navigate = useNavigate();
     const { user } = useAppSelector((state) => state.auth);
     console.log(user);
+    if (!user) {
+        navigate("/account/login");
+    }
     const { data: cart, refetch } = useGetCartQuery(undefined, { skip: !user });
     console.log(refetch);
     const [createOrder, {isLoading}] = useCreateOrderMutation();
-    const navigate = useNavigate();
-
     const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
     const [searchDepartmentText, setSearchDepartmentText] = useState<string>("");
     const [searchCityText, setSearchCityText] = useState<string>("");
@@ -33,9 +35,7 @@ const OrderFormPage: React.FC = () => {
         data: postDepartments = [],
         isLoading: isDeptsLoading
     } = useGetPostDepartmentsQuery(
-        selectedCityId && searchDepartmentText
-            ? { cityId: selectedCityId, name: searchDepartmentText }
-            : skipToken
+        selectedCityId ? { cityId: selectedCityId, name: searchDepartmentText } : skipToken
     );
 
     const onFinish: FormProps<ICreateOrderItem>['onFinish'] = async (values) => {

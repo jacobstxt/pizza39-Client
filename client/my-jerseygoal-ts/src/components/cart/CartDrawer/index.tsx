@@ -118,7 +118,7 @@ const CartDrawer: React.FC = () => {
                     <Button className="!bg-red-600 justify-end !text-white hover:!bg-red-700 font-bold !mt-3 !px-8 !py-5 mb-3 rounded-full shadow-md transition hover:scale-105"
                             onClick={() =>{
                                 setOpen(false)
-                                navigate("/checkout");
+                                navigate("/checkout",{ state: { cart } });
                             }}>
                                 Оформити замовлення
                     </Button>

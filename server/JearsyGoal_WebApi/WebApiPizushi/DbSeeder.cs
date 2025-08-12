@@ -17,7 +17,7 @@ public static class DbSeeder
     public static async Task SeedData(this WebApplication webApplication)
     {
         using var scope = webApplication.Services.CreateScope();
-        //Цей об'єкт буде верта посилання на конткетс, який зараєстрвоано в Progran.cs
+        //Цей об'єкт буде повертати посилання на конткетс, який зараєстрвоано в Progran.cs
         var context = scope.ServiceProvider.GetRequiredService<AppDbPizushiContext>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<RoleEntity>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserEntity>>();
@@ -362,10 +362,16 @@ public static class DbSeeder
         }
 
 
-        if (!context.PostDepartments.Any())
+        if (!await context.Cities.AnyAsync())
+        {
+            await novaPosta.FetchCitiesAsync();
+        }
+
+        if (!await context.PostDepartments.AnyAsync())
         {
             await novaPosta.FetchDepartmentsAsync();
         }
+
 
         if (!context.PaymentTypes.Any())
         {

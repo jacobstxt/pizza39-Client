@@ -92,6 +92,10 @@ namespace Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Ref")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("tbl_Cities");
@@ -166,6 +170,10 @@ namespace Domain.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Ref")
                         .IsRequired()
                         .HasColumnType("text");
 
