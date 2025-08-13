@@ -16,17 +16,17 @@ const ProfilePage = () => {
                     alt="Avatar"
                     className="w-20 h-20 rounded-full border-2 border-white shadow-sm"
                 />
-                <h1 className="text-2xl font-bold mt-3">{user.name}</h1>
-                <p className="text-gray-500 text-sm">{user.email}</p>
+                <h1 className="text-2xl font-bold mt-3">{user?.name}</h1>
+                <p className="text-gray-500 text-sm">{user?.email}</p>
             </div>
 
             {/* Інформація */}
             <div className="space-y-4">
                 <div>
-                    <strong className="text-gray-700">Ім'я:</strong> {user.name}
+                    <strong className="text-gray-700">Ім'я:</strong> {user?.name}
                 </div>
                 <div>
-                    <strong className="text-gray-700">Email:</strong> {user.email}
+                    <strong className="text-gray-700">Email:</strong> {user?.email}
                 </div>
             </div>
 
