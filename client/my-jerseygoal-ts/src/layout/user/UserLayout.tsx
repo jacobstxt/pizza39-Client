@@ -79,6 +79,7 @@ const UserLayout: React.FC = () => {
                                     {user.email}
                                 </div>
                                 <DropdownMenu.Item
+                                    onClick={openProfile}
                                     className="flex items-center text-black
                                     hover:bg-gray-200  py-2 rounded
                                     cursor-pointer text-sm transition-colors">

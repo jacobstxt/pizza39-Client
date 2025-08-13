@@ -22,6 +22,7 @@ import UsersEditPage from "./admin/pages/Users/Edit";
 import OrderFormPage from "./components/cart/OrderForm";
 import CheckoutLayout from "./layout/user/CheckoutLayout.tsx";
 import ProfilePage from "./pages/Account/Profile";
+import OrdersPage from "./pages/Account/OrderHistory";
 
 const App: React.FC = () => {
     return (
@@ -46,6 +47,7 @@ const App: React.FC = () => {
                         <Route  path={"email-sent-success"} element={<EmailSentSuccessPage/>} />
                         <Route  path={"reset-password"} element={<ResetPassword/>} />
                         <Route path={"profile"} element={<ProfilePage/>}></Route>
+                        <Route path={"order-history"} element={<OrdersPage/>}></Route>
                     </Route>
 
 
