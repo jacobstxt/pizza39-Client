@@ -98,6 +98,10 @@ public class AccountService(IJwtTokenService tokenService,
 
         var result = await smtpService.SendEmailAsync(emailModel);
 
+        Console.WriteLine("ENV: " + Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
+        Console.WriteLine("ClientUrl: " + configuration["ClientUrl"]);
+
+
         return result;
     }
 

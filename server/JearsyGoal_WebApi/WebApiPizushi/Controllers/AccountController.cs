@@ -91,6 +91,7 @@ namespace WebApiPizushi.Controllers
                     IsValid = false,
                     Errors = new { Email = "Користувача з такою поштою не існує" }
                 });
+
         }
 
         [HttpGet]

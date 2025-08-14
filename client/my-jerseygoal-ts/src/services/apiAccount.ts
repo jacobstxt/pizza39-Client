@@ -62,8 +62,6 @@ export const apiAccount = createApi({
     baseQuery: createBaseQuery('account'),
     tagTypes: ['Account'],
     endpoints: (builder) => ({
-
-
         login: builder.mutation<ILoginResponse, ILoginRequest>({
             query: (credentials) => ({
                 url: 'login',
