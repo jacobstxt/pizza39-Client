@@ -3,7 +3,7 @@ import React from "react";
 
 const EmailSentSuccessPage: React.FC = () => {
     return (
-        <div className="min-h-[550px] flex flex-col items-center justify-center bg-red-100 p-6">
+        <div className="min-h-[550px] flex flex-col items-center justify-center p-6">
             <div className="bg-red-600 text-white rounded-xl shadow-lg p-10 max-w-md text-center">
                 <h1 className="text-3xl font-bold mb-4">Лист надіслано!</h1>
                 <p className="mb-6 text-lg">

@@ -124,6 +124,8 @@ public class AccountService(IJwtTokenService tokenService,
 
         if (user != null)
             await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+
     }
 
 }
