@@ -1,6 +1,6 @@
 # Pizza39-App
 
-Проєкт сайту доставки піци з фронтендом і бекендом.
+Проєкт сайту доставки піци
 
 ---
 
@@ -8,9 +8,6 @@
 
 - `/client/my-jerseygoal-ts` — фронтенд (React).  
   Детальна інструкція в `client/my-jerseygoal-ts/README.md`.
-- `/server/JearsyGoal_WebApi` — бекенд (ASP.NET Core Web API).  
-  Документація всередині папки.
-
 ---
 
 ## Запуск
